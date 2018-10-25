@@ -1,0 +1,34 @@
+Data set Imported Here:
+```{r}
+sqsData <- read.csv("SQS-UserPersonalizationProcessingQueue.csv", header = TRUE, sep = ";", stringsAsFactors = TRUE)
+typeof(sqsData)
+str(sqsData)
+```
+
+Great. now you are in possession of sqs stats from grafana in the format of csv
+go ahead and take a look at it
+
+```{r}
+# sqsData
+```
+
+
+
+
+
+Since you already have the imported CSV data, why not experemnt and get yourself familiar with schema:
+```{r}
+sqsDataMatrix <- as.matrix(sqsData)
+sqsDataVector <- as.vector(sqsData)
+colnames(sqsDataMatrix)
+colnames(sqsDataVector)
+```
+Excellent, now you can go ahead and play around with data.
+here is an example on sum()
+```{r}
+deletedMessagesSum <- sum(as.numeric(sqsData$NumberOfMessagesDeleted_Sum))
+receivedMessagesSum <- sum(as.numeric(sqsData$NumberOfMessagesReceived_Sum))
+sentMessagesSum <- sum(as.numeric(sqsData$NumberOfMessagesSent_Sum))
+
+data.frame("deleted" = deletedMessagesSum, "received" = receivedMessagesSum, "sent" = sentMessagesSum)
+```
