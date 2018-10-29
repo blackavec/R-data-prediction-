@@ -1,3 +1,9 @@
+install the following:
+```{r}
+
+install.packages("tidyverse")
+```
+
 Data set Imported Here:
 ```{r}
 sqsData <- read.csv("SQS-UserPersonalizationProcessingQueue.csv", header = TRUE, sep = ";", stringsAsFactors = TRUE)
@@ -36,17 +42,18 @@ since you are at it, go ahead and draw a chart from it as well.
 ```{r}
 library(lattice)
 
-timeList              <- as.Date.character(sqsData$Time)
+timeList              <- as.factor(sqsData$Time)
 deletedMessagesList   <- as.integer(sqsData$NumberOfMessagesDeleted_Sum)
 receivedMessagesList  <- as.integer(sqsData$NumberOfMessagesReceived_Sum)
 sentMessagesSumList   <- as.integer(sqsData$NumberOfMessagesSent_Sum)
 
 chartDataFrame <- data.frame("time" = timeList, "deleted" = deletedMessagesList, "received" = receivedMessagesList, "sent" = sentMessagesSumList)
 
-xyplot(
-  sentMessagesSumList~timeList,
-  data = chartDataFrame,
-  type = "l",
-  auto.key=list(space='bottom')
-)
+View(chartDataFrame)
+#xyplot(
+#  sentMessagesSumList~timeList,
+#  data = chartDataFrame,
+#  type = "l",
+#  auto.key=list(space='bottom')
+#)
 ```
